@@ -1,0 +1,45 @@
+﻿@model ReadFolder.Models.FileSystemModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Enter Directory Path</h2>
+
+<form id="directoryForm" action="@Url.Action("DisplayFileSystemEntries", "Home")" method="post">
+    <input type="text" name="directoryPath" />
+    <button id="submitBtn" class="btn btn-primary" type="submit">
+        submit
+    </button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}
+
+@if (ViewBag.FileSystemTree != null)
+{
+    <h2>File System Tree</h2>
+    <partial name="_FileSystemTree" model="ViewBag.FileSystemTree"/>
+
+}
+
+@section Scripts
+{
+    <script>
+        document.getElementById("directoryForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+
+            var submitBtn = document.getElementById("submitBtn");
+
+            submitBtn.disabled = true; // Disable the submit button
+            submitBtn.textContent = "Loading..."; // Thay đổi nội dung của button
+
+            // Thực hiện logic xử lý submit ở đây (ví dụ: gửi AJAX request)
+
+            // Sau khi hoàn thành xử lý, submit form
+                document.getElementById("directoryForm").submit();
+        });
+    </script>
+}

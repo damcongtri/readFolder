@@ -1,0 +1,21 @@
+﻿@model ReadFolder.Models.FileSystemModel
+
+<ul>
+    <li>
+        @if (Model.IsFile)
+        {
+            <span>@Model.Name</span>
+        }
+        else
+        {
+            <span>@Model.Name</span>
+            @if (Model.Children.Any())
+            {
+                @foreach (var child in Model.Children)
+                {
+                    @Html.Partial("_FileSystemTree", child)
+                }
+            }
+        }
+    </li>
+</ul>
